@@ -47,7 +47,7 @@
 
         craneLib = (crane.mkLib pkgs).overrideToolchain rustStable;
 
-        llvm22 = llvm22Pkgs.llvmPackages_22;
+        llvm22 = llvm22Pkgs.llvmPackages_23;
 
         nativeBuildInputs = [
           pkgs.pkg-config
@@ -77,7 +77,7 @@
           buildInputs = prev.buildInputs or [] ++ [
             llvm22.llvm.lib
           ];
-          LLVM_SYS_221_PREFIX = "${llvm22.llvm.dev}";
+          LLVM_SYS_231_PREFIX = "${llvm22.llvm.dev}";
         };
 
         withLlvm22DevShell = prev: (withLlvm22 prev) // {
