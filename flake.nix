@@ -54,6 +54,8 @@
           pkgs.libgit2
           pkgs.m4
           pkgs.perl
+        ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
+          pkgs.autoPatchelfHook
         ];
 
         buildInputs = [
@@ -118,6 +120,12 @@
           src = ./.;
           inherit nativeBuildInputs buildInputs;
           doCheck = false;
+          doInstallCheck = true;
+          installCheckPhase = ''
+            runHook preInstallCheck
+            "$out/bin/reth" --version
+            runHook postInstallCheck
+          '';
         } overrides);
 
       in
